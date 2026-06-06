@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000" id="meta-theme">
+    <meta property="og:title" content="" id="meta-og-title" />
+    <meta property="og:description" content="" id="meta-og-desc" />
+    <title id="site-title"></title>
+    
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #06010a; /* Ультра-темный фон для максимального контраста кода */
+            overflow: hidden;
+            position: relative;
+        }
+
+        #enter-screen {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+        }
+
+        #enter-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #enter-text {
+            color: #00ff00;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00;
+            animation: pulse 1.2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.4; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1.03); }
+        }
+
+        /* Стили падающих символов Матрицы */
+        .matrix-drop {
+            position: fixed;
+            top: -50px;
+            font-family: monospace;
+            font-weight: bold;
+            user-select: none;
+            pointer-events: none;
+            animation: matrix-fall linear infinite;
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            z-index: 10;
+            margin-bottom: 3rem;
+        }
+
+        /* Хакерская неоновая карточка */
+        .card {
+            width: 100%;
+            background: rgba(10, 2, 18, 0.75);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.15), 0 0 50px rgba(255, 0, 255, 0.15);
+            border: 2px solid #ff00ff;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+            animation: border-glow 4s infinite alternate;
+        }
+
+        /* Плавный перелив рамки карточки между фиолетовым и зеленым */
+        @keyframes border-glow {
+            0% { border-color: #ff00ff; box-shadow: 0 0 25px rgba(255, 0, 255, 0.3); }
+            100% { border-color: #00ff00; box-shadow: 0 0 25px rgba(0, 255, 0, 0.3); }
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+        }
+
+        .info {
+            flex: 1;
+            color: white;
+            text-align: center;
+        }
+
+        .name-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .crown-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .crown-icon {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 8px #ff00ff);
+            transition: transform 0.25s ease;
+        }
+
+        .crown-wrapper:hover .crown-icon {
+            transform: scale(1.15) rotate(-8deg);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: rgba(0, 0, 0, 0.95);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 0.35rem 0.6rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+        }
+
+        .crown-wrapper:hover .tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .now-playing {
+            font-size: 0.9rem;
+            color: #00ff00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
+            font-family: monospace;
+        }
+
+        .links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        /* Кибер-кнопки */
+        .link-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(6, 1, 10, 0.6);
+            border: 1px solid #ff00ff;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .link-icon img {
+            width: 26px;
+            height: 26px;
+            filter: drop-shadow(0 0 2px white);
+        }
+
+        .link-icon:hover {
+            transform: translateY(-6px) scale(1.05);
+            border-color: #00ff00;
+            box-shadow: 0 0 25px #00ff00, 0 0 10px #ff00ff;
+        }
+
+        /* Твой кастомный футер */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(0, 255, 0, 0.6);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+            font-weight: 700;
+            z-index: 5;
+            user-select: none;
+            pointer-events: none;
+            font-family: monospace;
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="enter-screen">
+        <div id="enter-text">SYSTEM ONLINE (click)</div>
+    </div>
+
+    <audio id="bg-music" loop></audio>
+
+    <div class="container">
+        <div class="card" id="card">
+            <img src="" id="profile-pic" class="profile-pic" alt="Avatar">
+
+            <div class="info">
+                <div class="name-row">
+                    <div class="name" id="profile-name"></div>
+                    <div class="crown-wrapper" id="badge-wrapper" style="display: none;">
+                        <img src="" id="badge-icon" class="crown-icon" alt="Badge">
+                        <div class="tooltip" id="badge-tooltip"></div>
+                    </div>
+                </div>
+                <div class="now-playing"></div>
+            </div>
+        </div>
+
+        <div class="links" id="links-container"></div>
+    </div>
+
+    <footer>Зделано по просьбе подруги</footer>
+
+    <script src="./app.js"></script>
+</body>
+</html>

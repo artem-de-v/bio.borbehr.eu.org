@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Discord",
+    "url": "https://discord.com/users/1472288918496870503",
+    "icon": "https://img.icons8.com/?size=100&id=30888&format=png&color=000000"
+  },
+  {
+    "name": "Steam",
+    "url": "https://steamcommunity.com/id/borbehr/",
+    "icon": "https://img.icons8.com/?size=100&id=12505&format=png&color=000000"
+  },
+  {
+    "name": "Telegram",
+    "url": "https://t.me/borBeHR",
+    "icon": "https://img.icons8.com/?size=100&id=lUktdBVdL4Kb&format=png&color=000000"
+  },
+    {
+    "name": "GitHub",
+    "url": "https://github.com/borbehr-dev",
+    "icon": "https://github.com/favicon.ico"
+  }
+]

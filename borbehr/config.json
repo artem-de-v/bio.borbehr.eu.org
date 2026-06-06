@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "title": "borbehr.eu.org",
+    "description": "",
+    "themeColor": "#000000"
+  },
+  "profile": {
+    "username": "borBeHR",
+    "avatarUrl": "https://borbehr.eu.org/favicon.ico",
+    "badge": {
+      "iconUrl": "https://img.icons8.com/?size=100&id=86727&format=png&color=000000",
+      "tooltip": "Owner"
+    }
+  },
+  "audio": {
+    "src": "https://files.catbox.moe/twwxqt.mp3",
+    "volume": 0.3
+  }
+}

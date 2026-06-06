@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "title": "AnyaGress | Hub",
+    "description": "Персональная страница Ани",
+    "themeColor": "#ff00ff"
+  },
+  "profile": {
+    "username": "AnyaGress",
+    "avatarUrl": "https://anyagress.pp.ua/favicon.ico",
+    "badge": {
+      "iconUrl": "https://img.icons8.com/?size=100&id=86727&format=png&color=000000",
+      "tooltip": "Co-Owner"
+    }
+  },
+  "audio": {
+    "src": "https://files.catbox.moe/twwxqt.mp3",
+    "volume": 0.3
+  }
+}
